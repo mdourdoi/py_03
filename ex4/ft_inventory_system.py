@@ -54,7 +54,8 @@ def ft_test_dict() -> None:
     print("=== Dictionary properties Demo ===")
     print(f"Dictionary keys: {inventory.keys()}")
     print(
-        f"Dictionnary values: {[item["quantity"] for item in inventory.values()]}")
+        f"Dictionnary values: {[item["quantity"]
+                                for item in inventory.values()]}")
     print(
         f"Sample lookup - 'sword' in inventory: {"sword" in inventory.keys()}")
 
