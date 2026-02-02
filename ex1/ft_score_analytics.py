@@ -22,7 +22,6 @@ def score_analytics(args: list[int]) -> None:
         print(f"High score: {max(args)}")
         print(f"Low score: {min(args)}")
         print(f"Score range: {max(args) - min(args)}")
-        print()
     else:
         print("No score provided. ", end="")
         print("Usage: python3 ft_score_analytics.py <score1> <score2>")

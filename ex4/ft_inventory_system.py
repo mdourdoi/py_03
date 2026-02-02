@@ -1,63 +1,69 @@
-def ft_test_dict() -> None:
+import sys
+
+
+def parsing_input(argv: list[str]) -> dict[str:dict[str, int]] | None:
+    """Parses the input or raises an error if the format is incorrect"""
+    res = {}
+    try:
+        for entry in argv:
+            temp = entry.split(sep=":")
+            res.update({temp[0]: {"name": temp[0], "qty": int(temp[1])}})
+    except Exception:
+        raise Exception("Invalid input, use <item1>:<qty1> <item2>:<qty2>...")
+    return res
+
+
+def ft_test_dict(argv: list[str]) -> None:
     """Uses dictionnary to simulate arguments"""
+    try:
+        inv = parsing_input(argv)
+    except Exception as cur_error:
+        print(cur_error)
+        return
+    if len(argv) == 0:
+        print("Please input an inventory: <item1>:<qty1> <item2>:<qty2>...")
+        return
     print("=== Inventory system analysis ===")
-    inventory = {
-        "potion": {
-            "name": "potion",
-            "quantity": 5},
-        "armor": {
-            "name": "armor",
-            "quantity": 3},
-        "shield": {
-            "name": "shield",
-            "quantity": 2},
-        "sword": {
-            "name": "sword",
-            "quantity": 1},
-        "helmet": {
-            "name": "helmet",
-            "quantity": 1}}
     total = 0
-    for item in inventory.values():
-        total += item["quantity"]
-    quantity = 0
-    for item in inventory.values():
-        quantity += 1
+    for item in inv.values():
+        total += item['qty']
+    qty = 0
+    for item in inv.values():
+        qty += 1
     print(f"Total items in inventory: {total}")
-    print(f"Unique item types: {quantity}")
+    print(f"Unique item types: {qty}")
     print()
-    print("=== Current Inventory ===")
-    for key, item in inventory.items():
-        value = (item["quantity"] / total * 100)
-        print(f"{key}: {item["quantity"]} units ({value:.2f}%)")
+    print("=== Current inv ===")
+    for key, item in inv.items():
+        value = (item['qty'] / total * 100)
+        print(f"{key}: {item['qty']} units ({value:.2f}%)")
     print()
     print("=== Item Categories ===")
-    moderate = {
-        value["name"]: value["quantity"]
-        for value in inventory.values() if value["quantity"] >= 5}
+    moderate = {value['name']: value['qty']
+                for value in inv.values() if value['qty'] >= 5}
     scarce = {
-        value["name"]: value["quantity"]
-        for value in inventory.values() if value["quantity"] < 5}
+        value['name']: value['qty']
+        for value in inv.values() if value['qty'] < 5}
     if moderate:
         print(f"Moderate: {moderate}")
     if scarce:
         print(f"Scarce: {scarce}")
     print()
     print("=== Management Suggestion ===")
-    restock = [value["name"]
-               for value in inventory.values() if value["quantity"] <= 1]
+    restock = [value["name"] for value in inv.values() if value['qty'] <= 1]
     if restock:
         print(f"Restock needed: {restock}")
     else:
         print("No restock needed")
     print()
     print("=== Dictionary properties Demo ===")
-    print(f"Dictionary keys: {inventory.keys()}")
+    print(f"Dictionary keys: {inv.keys()}")
     print(
-        f"Dictionnary values: {[item["quantity"]
-                                for item in inventory.values()]}")
+        f"Dictionnary values: {[item['qty'] for item in inv.values()]}")
     print(
-        f"Sample lookup - 'sword' in inventory: {"sword" in inventory.keys()}")
+        f"Sample lookup - 'sword' in inventory: {'sword' in inv.keys()}")
 
 
-ft_test_dict()
+if __name__ == "__main__":
+    test = sys.argv[1:]
+    ft_test_dict(test)
