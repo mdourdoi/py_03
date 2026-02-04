@@ -131,4 +131,5 @@ def ft_test_generator() -> None:
     print(f"{next(prime_iterator)}")
 
 
-ft_test_generator()
+if __name__ == "__main__":
+    ft_test_generator()

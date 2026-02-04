@@ -7,6 +7,9 @@ def parsing_input(argv: list[str]) -> dict[str:dict[str, int]] | None:
     try:
         for entry in argv:
             temp = entry.split(sep=":")
+            if len(temp) != 2:
+                raise Exception(
+                    "Invalid input, use <item1>:<qty1> <item2>:<qty2>...")
             res.update({temp[0]: {"name": temp[0], "qty": int(temp[1])}})
     except Exception:
         raise Exception("Invalid input, use <item1>:<qty1> <item2>:<qty2>...")
