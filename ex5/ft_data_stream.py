@@ -64,7 +64,7 @@ def prime_iter() -> Generator[iter, None, None]:
         res += 1
 
 
-def try_generators() -> None:
+def ft_test_generator() -> None:
     """Simulates events for 3 players"""
     players = {
         "alice": {"name": "alice", "level": 5, "treasures": 0},
@@ -81,6 +81,7 @@ def try_generators() -> None:
     player_name_iterator = players_iterator()
     event_iterator = events_generator()
     skip = False
+
     print("=== Game Data Stream Processor ===")
     print()
     print(f"Processing {nb_events} game events...")
@@ -88,9 +89,10 @@ def try_generators() -> None:
     cur_time = time.time()
     for i in finite_generator(nb_events):
         cur_player = next(player_name_iterator)
+        lvl = players[cur_player]["level"]
         event = next(event_iterator)
         if skip is False:
-            print(f"Event {i + 1}: Player {cur_player} {event}")
+            print(f"Event {i + 1}: Player {cur_player} (level {lvl}) {event}")
         if skip is False and i >= 2:
             skip = True
             print("...")
@@ -104,16 +106,18 @@ def try_generators() -> None:
             treasure_events += 1
     print()
     cur_time = time.time() - cur_time
+
     print("=== Stream Analytics ===")
     print()
     print(f"Total event processed: {nb_events}")
-    print(f"High level players: {high_level_count}")
-    print(f"Total level_up_events: {level_events}")
+    print(f"High level players (10+): {high_level_count}")
     print(f"Treasure events: {treasure_events}")
+    print(f"Level_up_events: {level_events}")
     print()
     print("Memory usage: Constant (streaming)")
     print(f"Processing time: {cur_time:.4f} seconds")
     print()
+
     print("=== Generator Demonstration ===")
     print("Fibonacci sequence (first 10): ", end="")
     fib_iter = fibonacci_iter()
@@ -127,4 +131,4 @@ def try_generators() -> None:
     print(f"{next(prime_iterator)}")
 
 
-try_generators()
+ft_test_generator()

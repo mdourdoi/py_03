@@ -1,6 +1,6 @@
 def test_sets() -> None:
     """Uses sets to get achievements"""
-    print("=== Achievment Tracker system ===")
+    print("=== Achievement Tracker system ===")
     print()
     # Creation of unique achievements
     first_kill = "first_kill"

@@ -23,7 +23,8 @@ def ft_test_dict(argv: list[str]) -> None:
     if len(argv) == 0:
         print("Please input an inventory: <item1>:<qty1> <item2>:<qty2>...")
         return
-    print("=== Inventory system analysis ===")
+
+    print("=== Inventory System Analysis ===")
     total = 0
     for item in inv.values():
         total += item['qty']
@@ -33,11 +34,32 @@ def ft_test_dict(argv: list[str]) -> None:
     print(f"Total items in inventory: {total}")
     print(f"Unique item types: {qty}")
     print()
-    print("=== Current inv ===")
+
+    print("=== Current Inventory ===")
     for key, item in inv.items():
         value = (item['qty'] / total * 100)
         print(f"{key}: {item['qty']} units ({value:.2f}%)")
     print()
+
+    print("=== Inventory Statistics ===")
+    min_item = None
+    max_item = None
+    for item in inv.values():
+        qty = item.get("qty")
+        if min_item is None or qty < min_item.get("qty"):
+            min_item = item
+        if max_item is None or qty > max_item.get("qty"):
+            max_item = item
+    if max_item["qty"] <= 1:
+        print(f"Most abundant: {max_item['name']} ({max_item['qty']} unit)")
+    else:
+        print(f"Most abundant: {max_item['name']} ({max_item['qty']} units)")
+    if min_item['qty']:
+        print(f"Least abundant: {min_item['name']} ({min_item['qty']} unit)")
+    else:
+        print(f"Least abundant: {min_item['name']} ({min_item['qty']} units)")
+    print()
+
     print("=== Item Categories ===")
     moderate = {value['name']: value['qty']
                 for value in inv.values() if value['qty'] >= 5}
@@ -49,6 +71,7 @@ def ft_test_dict(argv: list[str]) -> None:
     if scarce:
         print(f"Scarce: {scarce}")
     print()
+
     print("=== Management Suggestion ===")
     restock = [value["name"] for value in inv.values() if value['qty'] <= 1]
     if restock:
@@ -56,6 +79,7 @@ def ft_test_dict(argv: list[str]) -> None:
     else:
         print("No restock needed")
     print()
+
     print("=== Dictionary properties Demo ===")
     print(f"Dictionary keys: {inv.keys()}")
     print(

@@ -28,10 +28,10 @@ def parse_coordinates(arg: str) -> tuple | None:
         res = check_is_coordinates(res)
         return (res)
     except (ValueError, AttributeError) as cur_error:
-        print(f"Error parsing coordinates: {cur_error}")
-        print(
-            f"Error details - Type: {cur_error.__class__.__name__}, ", end="")
-        print(f"Args: (\"{cur_error}\")")
+        res = f"Error parsing coordinates: {cur_error}\n"
+        res = res + f"Error details - Type: {cur_error.__class__.__name__},"
+        res = res + f" Args: (\"{cur_error}\")"
+        raise ValueError(res)
 
 
 def ft_distance(arg1: tuple, arg2: tuple) -> float | None:
@@ -54,15 +54,21 @@ def test_coordinates() -> None:
     print("=== Game Coordinate System ===")
     print()
 # Testing a valid position:
-    pos1 = parse_coordinates("10,20,5")
-    print(f"Position created: {pos1}")
-    ft_distance(pos1, (0, 0, 0))
+    try:
+        pos1 = parse_coordinates("10,20,5")
+        print(f"Position created: {pos1}")
+        ft_distance(pos1, (0, 0, 0))
+    except Exception as cur_error:
+        print(cur_error)
     print()
     pos2 = "3,4,0"
     print(f"Parsing coordinates: {pos2}")
-    pos2 = parse_coordinates(pos2)
-    print(f"Parsed position: {pos2}")
-    ft_distance(pos2, (0, 0, 0))
+    try:
+        pos2 = parse_coordinates(pos2)
+        print(f"Parsed position: {pos2}")
+        ft_distance(pos2, (0, 0, 0))
+    except ValueError as cur_error:
+        print(cur_error)
     print()
 # Testing an invalid position
     print("Parsing invalid coordinates: \"abc,def,ghi\"")
@@ -73,7 +79,7 @@ def test_coordinates() -> None:
     print()
 # Unpacking demonstration
     print("Unpacking demonstration:")
-    x, y, z = pos2
+    x, y, z = (3, 4, 0)
     print(f"Player at x={x}, y={y}, z={z}")
     print(f"Coordinates: X={x}, Y={y}, Z={z}")
 

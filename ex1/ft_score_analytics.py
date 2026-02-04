@@ -15,7 +15,7 @@ def check_validity(argv: list[str]) -> list[int] | None:
 def score_analytics(args: list[int]) -> None:
     """Displays informations about the scores"""
     if len(args) > 0:
-        print(f"Score processed: {args}")
+        print(f"Scores processed: {args}")
         print(f"Total players: {len(args)}")
         print(f"Total score: {sum(args)}")
         print(f"Average core: {sum(args) / len(args)}")
